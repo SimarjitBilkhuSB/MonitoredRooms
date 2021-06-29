@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">MonitoredRooms</string>
+    <string name="title_activity_monitored_rooms">Monitored Rooms Activity</string> <!-- App Title shown below app icon -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_sort">Sort Rooms</string>
+
+    <string name="menu_monitored_rooms">Monitored Rooms</string>
+    <string name="menu_feature1">Feature 1</string>
+    <string name="menu_feature2">Feature 2</string>
+    <string name="menu_feature3">Feature 3</string>
+</resources>

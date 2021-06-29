@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:title="@string/menu_monitored_rooms"
+            android:visible="false" /> <!-- Not shown at the moment-->
+        <item
+            android:id="@+id/nav_feature1"
+            android:icon="@drawable/ic_menu_feature2"
+            android:title="@string/menu_feature1" /> <!-- change this when adding new feature -->
+        <!-- after changing title, use the same string reference to update the label in the mobile_navigation.xml
+             this will change the Toolbar's title -->
+        <item
+            android:id="@+id/nav_feature2"
+            android:icon="@drawable/ic_menu_feature1"
+            android:title="@string/menu_feature2" /> <!-- change this when adding new feature -->
+            <!-- after changing title, use the same string reference to update the label in the mobile_navigation.xml
+                 this will change the Toolbar's title -->
+        <item
+            android:id="@+id/nav_feature3"
+            android:icon="@drawable/ic_menu_feature3"
+            android:title="@string/menu_feature3" /> <!-- change this when adding new feature -->
+        <!-- after changing title, use the same string reference to update the label in the mobile_navigation.xml
+             this will change the Toolbar's title -->
+    </group>
+</menu>
