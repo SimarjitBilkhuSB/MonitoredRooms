@@ -177,7 +177,7 @@ public class MonitoredRoomsFragment extends Fragment implements DialogInterface.
         ArrayList<Room> testRoomList = new ArrayList<>();
 
         //add rooms to list
-        for(int i = 0; i < 10; i++){
+        for(int i = 0; i < 0; i++){
             String roomName = "Room " + i;
             testRoomList.add(new Room(roomName, 14+i, 14-i, 2*14+i, "Unoccupied", 10));
         }
