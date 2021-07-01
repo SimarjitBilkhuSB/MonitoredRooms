@@ -2,8 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_sort"
-        android:orderInCategory="100"
-        android:title="@string/action_sort"
+        android:id="@+id/action_sort1"
+        android:title="@string/by_low_temperature"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_sort2"
+        android:title="@string/by_high_temperature"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_sort3"
+        android:title="@string/by_room_name"
+        android:visible="false"
         app:showAsAction="never" />
 </menu>

@@ -1,9 +1,11 @@
 package com.example.monitoredrooms.ui.home;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -15,20 +17,27 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import com.example.monitoredrooms.AddRoomDialog;
 import com.example.monitoredrooms.R;
+import com.example.monitoredrooms.databinding.FragmentFeature1Binding;
 import com.example.monitoredrooms.databinding.FragmentMonitoredRoomsBinding;
+import com.example.monitoredrooms.ui.feature1.Feature1Fragment;
 import com.example.monitoredrooms.utility.Room;
 import com.example.monitoredrooms.utility.RoomAdapter;
+import com.example.monitoredrooms.utility.SortByHighTemperature;
+import com.example.monitoredrooms.utility.SortByLowTemperature;
+import com.example.monitoredrooms.utility.SortByRoomName;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
 
-public class MonitoredRoomsFragment extends Fragment {
+public class MonitoredRoomsFragment extends Fragment implements DialogInterface.OnDismissListener {
 
     private FragmentMonitoredRoomsBinding binding;
 
@@ -50,7 +59,10 @@ public class MonitoredRoomsFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        loadListView();
+
+
+        //maybe save the choice in database as user preference
+        loadListView(getString(R.string.default_choice));
 
     }
 
@@ -61,6 +73,35 @@ public class MonitoredRoomsFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
 
      }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull @NotNull MenuItem item) {
+
+
+        int ID = item.getItemId();
+
+        //String choice = item.getTitle().toString();
+        //String previousChoice --> from database
+
+        //implement once settings table is set in database
+        /**if(ID == R.id.action_sort1){
+            loadListView(item.getTitle().toString());
+
+        }
+        else if(ID == R.id.action_sort2){
+
+        }
+        else if(ID == R.id.action_sort3){
+
+        }*/
+
+
+
+        //necessary to return super or clicking up button will make the app crash
+        return super.onOptionsItemSelected(item);
+    }
+
+    //define options menu
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -94,6 +135,8 @@ public class MonitoredRoomsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //opens the same dialog fragment as the floating action button
+                AddRoomDialog dialog = new AddRoomDialog();
+                dialog.show(getParentFragmentManager(), "Add Room");
             }
         });
 
@@ -103,6 +146,9 @@ public class MonitoredRoomsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //opens the same dialog fragment as the button
+                AddRoomDialog dialog = new AddRoomDialog();
+                dialog.show(getParentFragmentManager(), "Add Room");
+
             }
         });
 
@@ -127,13 +173,29 @@ public class MonitoredRoomsFragment extends Fragment {
     }
 
     //only for test purposes
-    public void loadListView(){
+    public void loadListView(String sortByChoice){
         ArrayList<Room> testRoomList = new ArrayList<>();
 
         //add rooms to list
-        for(int i = 0; i < 0; i++){
+        for(int i = 0; i < 10; i++){
             String roomName = "Room " + i;
             testRoomList.add(new Room(roomName, 14+i, 14-i, 2*14+i, "Unoccupied", 10));
+        }
+
+        //if the string is empty for some reason, set it to default
+        if(sortByChoice == null){
+            sortByChoice = getString(R.string.default_choice);
+        }
+
+        //changes the order in the list based on the criterion selected
+        if(sortByChoice.equalsIgnoreCase("lowest temperature")){
+            sortByLowTemperature(testRoomList); //eventually change for list from database
+        }
+        else if(sortByChoice.equalsIgnoreCase("highest temperature")){
+            sortByHighTemperature(testRoomList); //eventually change for list from database
+        }
+        else{
+            sortByRoomName(testRoomList); //default option
         }
 
         //if list not empty, load listView otherwise prompt the user to add/create a room
@@ -157,16 +219,21 @@ public class MonitoredRoomsFragment extends Fragment {
         }
     }
 
-    //implement later
-    private void sortByLowTemperature(){
-
+    private void sortByLowTemperature(ArrayList<Room> roomList){
+        Collections.sort(roomList, new SortByLowTemperature());
     }
 
-    private void sortByHighTemperature(){
-
+    private void sortByHighTemperature(ArrayList<Room> roomList){
+        Collections.sort(roomList, new SortByHighTemperature());
     }
 
-    private void sortByRoomName(){
+    private void sortByRoomName(ArrayList<Room> roomList){
+        Collections.sort(roomList, new SortByRoomName());
+    }
 
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        //called when DialogInterface is dismissed
+        loadListView("default"); //load with settings from database
     }
 }

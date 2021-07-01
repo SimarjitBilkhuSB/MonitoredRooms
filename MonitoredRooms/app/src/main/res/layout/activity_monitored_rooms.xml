@@ -21,7 +21,7 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_monitored_rooms"
-        app:itemBackground="@color/lighter_blue"
+        app:itemBackground="@drawable/layered_nav_item_background"
         app:itemIconTint="@drawable/nav_drawer_item_selector"
         app:itemTextColor="@drawable/nav_drawer_item_selector"
         app:menu="@menu/activity_monitored_rooms_drawer" />
