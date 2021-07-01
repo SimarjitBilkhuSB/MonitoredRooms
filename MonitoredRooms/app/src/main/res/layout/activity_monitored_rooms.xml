@@ -22,5 +22,7 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_monitored_rooms"
         app:itemBackground="@color/lighter_blue"
+        app:itemIconTint="@drawable/nav_drawer_item_selector"
+        app:itemTextColor="@drawable/nav_drawer_item_selector"
         app:menu="@menu/activity_monitored_rooms_drawer" />
 </androidx.drawerlayout.widget.DrawerLayout>

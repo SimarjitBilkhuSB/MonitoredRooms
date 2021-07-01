@@ -32,9 +32,9 @@ public class MonitoredRoomsActivity extends AppCompatActivity {
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        //In this case only pass nav_home because it is the only top destination.
+        // When creating new features, add them to the app bar configuration
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home)
+                R.id.nav_home, R.id.nav_feature1, R.id.nav_feature2, R.id.nav_feature3)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_monitored_rooms);

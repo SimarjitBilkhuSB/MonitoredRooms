@@ -12,4 +12,6 @@
     <string name="menu_feature1">Feature 1</string>
     <string name="menu_feature2">Feature 2</string>
     <string name="menu_feature3">Feature 3</string>
+    <string name="add_room_button">add room</string>
+    <string name="there_are_no_rooms">There are no Rooms...</string>
 </resources>

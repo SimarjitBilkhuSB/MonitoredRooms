@@ -6,8 +6,10 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_monitored_rooms"
             android:title="@string/menu_monitored_rooms"
-            android:visible="false" /> <!-- Not shown at the moment-->
+            android:visible="true" /> <!-- Not shown at the moment-->
+            <!--show only if all feature fragments are used as top level destinations-->
         <item
             android:id="@+id/nav_feature1"
             android:icon="@drawable/ic_menu_feature2"
