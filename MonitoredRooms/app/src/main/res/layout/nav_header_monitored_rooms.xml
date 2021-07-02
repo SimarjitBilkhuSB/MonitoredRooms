@@ -17,31 +17,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Home Overview"
+        android:text="@string/home_overview"
         android:textColor="@color/white"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/user_icon_height"
+        android:layout_height="@dimen/user_icon_width"
+        android:background="@drawable/ic_user_icon_background"
         android:contentDescription="@string/nav_header_desc"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@mipmap/ic_launcher_round" />
+        android:foreground="@drawable/ic_user_icon_foreground"
+        android:foregroundGravity="center"
+        android:paddingTop="@dimen/nav_header_vertical_spacing" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="Username"
+        android:text="@string/username"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" /> <!-- modify text -->
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Other Information" />
+        android:text="@string/other_information" />
 
     <!-- modify text -->
 </LinearLayout>

@@ -30,4 +30,7 @@
     <string name="room_info3">room_info3</string>
     <string name="room_info2">room_info2</string>
     <string name="room_info1">room_info1</string>
+    <string name="home_overview">Home Overview</string>
+    <string name="username">Username</string>
+    <string name="other_information">Other Information</string>
 </resources>
