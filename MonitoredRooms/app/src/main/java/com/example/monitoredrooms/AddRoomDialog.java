@@ -76,11 +76,17 @@ public class AddRoomDialog extends DialogFragment {
         mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //implement save button
-
-                dismiss();
+                //implement save button methods
+                if(roomDataValidation()){
+                    saveRoom();
+                    dismiss(); //dismiss only if data entered is valid //implement if statements
+                }
             }
         });
+    }
+
+    private void saveRoom() {
+
     }
 
     private boolean roomDataValidation(){

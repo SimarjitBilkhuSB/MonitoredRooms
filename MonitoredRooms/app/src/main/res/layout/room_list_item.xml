@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--Change the guidelines depending on the number of characters allowed for Room names-->
+    <!--Also determine what the rooms status will be: Unoccupied or Free | Occupied or In Use-->
+    <!--This could help save characters for the room names-->
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/item_guideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.3555"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/item_guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.6112"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/item_guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="1.0000"/>
+
+    <TextView
+        android:id="@+id/item_textview1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/room_info1"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toStartOf="@+id/item_guideline1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/item_textview2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/room_info2"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toStartOf="@+id/item_guideline2"
+        app:layout_constraintStart_toStartOf="@+id/item_guideline1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/item_textview3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/room_info3"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toStartOf="@+id/item_guideline3"
+        app:layout_constraintStart_toStartOf="@+id/item_guideline2"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

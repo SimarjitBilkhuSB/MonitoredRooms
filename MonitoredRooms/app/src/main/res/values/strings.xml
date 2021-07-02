@@ -27,4 +27,7 @@
     <string name="save">SAVE</string>
     <string name="occupancy_check_interval">Occupancy Check Interval</string>
     <string name="enter_room_information">Enter Room Information</string>
+    <string name="room_info3">room_info3</string>
+    <string name="room_info2">room_info2</string>
+    <string name="room_info1">room_info1</string>
 </resources>
