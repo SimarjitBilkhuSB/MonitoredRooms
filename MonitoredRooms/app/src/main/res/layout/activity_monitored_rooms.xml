@@ -14,12 +14,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <!-- setting fitsSystemWindows  on the navigation view to false makes it fit
+        the screen for all more recent devices for some reason - tested for samsung s8-->
+    <!-- it makes it not look as good on older models - tested for samsung galaxy S5-->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:fitsSystemWindows="true"
+        android:fitsSystemWindows="false"
         app:headerLayout="@layout/nav_header_monitored_rooms"
         app:itemBackground="@drawable/layered_nav_item_background"
         app:itemIconTint="@drawable/nav_drawer_item_selector"

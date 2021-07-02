@@ -10,13 +10,6 @@
     <!--This could help save characters for the room names-->
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/item_guideline4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.10"/>
-
-    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/item_guideline1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,7 +38,7 @@
         android:text="@string/room_info1"
         android:textAlignment="gravity"
         android:textSize="25sp"
-        android:minHeight="70dp"
+        android:minHeight="59dp"
         app:layout_constraintEnd_toStartOf="@+id/item_guideline1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -58,7 +51,7 @@
         android:text="@string/room_info2"
         android:textAlignment="gravity"
         android:textSize="25sp"
-        android:minHeight="70dp"
+        android:minHeight="59dp"
         app:layout_constraintEnd_toStartOf="@+id/item_guideline2"
         app:layout_constraintStart_toStartOf="@+id/item_guideline1"
         app:layout_constraintTop_toTopOf="parent" />
@@ -71,7 +64,7 @@
         android:text="@string/room_info3"
         android:textAlignment="gravity"
         android:textSize="25sp"
-        android:minHeight="70dp"
+        android:minHeight="59dp"
         app:layout_constraintEnd_toStartOf="@+id/item_guideline3"
         app:layout_constraintStart_toStartOf="@+id/item_guideline2"
         app:layout_constraintTop_toTopOf="parent" />
