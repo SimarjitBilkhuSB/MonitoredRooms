@@ -10,29 +10,75 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/addRoomButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="184dp"
+                android:text="@string/add_room_button"
+                android:textSize="25sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/noRoomTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="60dp"
+                android:text="@string/there_are_no_rooms"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@+id/noRoomImageView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ImageView
+                android:id="@+id/noRoomImageView"
+                android:layout_width="110dp"
+                android:layout_height="90dp"
+                android:layout_marginBottom="60dp"
+                android:src="@drawable/ic_baseline_error_outline_24"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@+id/addRoomButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:tint="@color/light_blue" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <ListView
             android:id="@+id/monitored_room_list_view"
             android:layout_width="match_parent"
-            android:layout_height="485dp"
+            android:layout_height="0dp"
             android:layout_marginStart="1dp"
-            android:layout_marginTop="5dp"
             android:layout_marginEnd="1dp"
             android:layout_marginBottom="10dp"
-            app:layout_constraintBottom_toTopOf="@+id/FloatingButton"
+            app:layout_constraintBottom_toTopOf="@+id/addRoomFloatingButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/FloatingButton"
+            android:id="@+id/addRoomFloatingButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
+            app:backgroundTint="@color/light_blue"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@android:drawable/ic_dialog_email" />
+            app:maxImageSize="40dp"
+            app:rippleColor="@color/white"
+            app:srcCompat="@drawable/ic_baseline_add_24" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- change this to implement the add action button -->

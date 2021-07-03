@@ -12,8 +12,20 @@ public class Room implements Parcelable {
     private String mRoomOccupancy;
     private int mRoomOccupancyCheckInterval;
 
+    //constructor 3 parameters
+    public Room(String RoomName, double MinTemp, double MaxTemp, int OccupancyInterval){
 
-    //constructor
+        this.mRoomName = RoomName;
+        this.mRoomTemperature = MinTemp; //must set the app's params to only send notification if sensors are connected
+        this.mRoomMinTemperature = MinTemp;
+        this.mRoomMaxTemperature = MaxTemp;
+        this.mRoomOccupancy = "Unoccupied";
+        this.mRoomOccupancyCheckInterval = OccupancyInterval;
+    }
+
+
+
+    //constructor 5 parameters
     public Room(String RoomName, double RoomTemp, double MinTemp, double MaxTemp, String Occupancy, int OccupancyInterval){
         this.mRoomName = RoomName;
         this.mRoomTemperature = RoomTemp;

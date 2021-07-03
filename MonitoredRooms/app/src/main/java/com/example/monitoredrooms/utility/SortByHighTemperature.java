@@ -8,7 +8,7 @@ public class SortByHighTemperature implements Comparator<Room> { //STILL NEED TO
     @Override
     public int compare(Room room1, Room room2) {
 
-        int firstComparison = Double.compare(room1.getRoomTemperature(), room2.getRoomTemperature());
+        int firstComparison = Double.compare(room2.getRoomTemperature(), room1.getRoomTemperature());
 
         //if same temperature, then sort by room occupancy
         if(firstComparison == 0){

@@ -4,11 +4,11 @@ import java.util.Comparator;
 
 public class SortByLowTemperature implements Comparator<Room> { //STILL NEED TO TEST
 
-   //to sort Room objects by highest temperature
+   //to sort Room objects by lowest temperature
     @Override
     public int compare(Room room1, Room room2) {
 
-        int firstComparison = Double.compare(room2.getRoomTemperature(), room1.getRoomTemperature());
+        int firstComparison = Double.compare(room1.getRoomTemperature(), room2.getRoomTemperature());
 
         //if same temperature, then sort by room occupancy
         if(firstComparison == 0){
