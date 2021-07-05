@@ -1,1 +1,39 @@
+#include <WiFi.h>  // Provides ESP32 specific WIFI methods to connect to network
+#include <Wire.h>  // Communicates with I2C (BME280)
+#include <Adafruit_Sensor.h>
+#include <Adafruit_BME280.h>
 
+
+Adafruit_BME280 bme; // Object of the sensor I2C
+// Adafruit_BME280 bme (I2C_SDA, I2C_SCL); // Object of the sensor
+
+
+float temperature = 0;
+
+
+const char * WIFI_SSID = "Network Name";
+const char * WIFI_PASSWORD = "Network Password";
+
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(115200);
+
+  //Connecting to the wifi SSID entered above by the user
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+  
+  if (!bme.begin()) {
+    Serial.println("Could not find a valid Temperature Sensor");
+    while(1);
+  }
+  
+  while (WiFi.status() != WL_CONNECTED) {
+    delay (1000);
+  }
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  temperature = bme.readTemperature();
+  delay(3000);
+}
