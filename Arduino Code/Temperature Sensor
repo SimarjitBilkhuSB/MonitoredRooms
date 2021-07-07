@@ -5,35 +5,42 @@
 
 
 Adafruit_BME280 bme; // Object of the sensor I2C
+// Adafruit_BMP280 bmp;
 // Adafruit_BME280 bme (I2C_SDA, I2C_SCL); // Object of the sensor
 
+float temperature;
 
-float temperature = 0;
-
-
-const char * WIFI_SSID = "Network Name";
-const char * WIFI_PASSWORD = "Network Password";
+const char * WIFI_SSID = "Network Name"; // "Network Name";
+const char * WIFI_PASSWORD = "Network Password"; //"Network Password";
 
 
 void setup() {
+  
   // put your setup code here, to run once:
   Serial.begin(115200);
 
-  //Connecting to the wifi SSID entered above by the user
+    //Connecting to the wifi SSID entered above by the user
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   
-  if (!bme.begin()) {
+  bme.begin(0x76);
+
+  if (!bme.begin(0x76)) {
     Serial.println("Could not find a valid Temperature Sensor");
     while(1);
   }
   
-  while (WiFi.status() != WL_CONNECTED) {
-    delay (1000);
-  }
+  //while (WiFi.status() != WL_CONNECTED) {
+ //   delay (1000);
+//  }
+
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  
   temperature = bme.readTemperature();
-  delay(3000);
+  
+  Serial.print("Temperature= ");
+  Serial.print(temperature);
+  Serial.print("°C\n");
+  delay(2000);
 }
