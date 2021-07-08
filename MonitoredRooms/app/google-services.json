@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "1086173987596",
+    "firebase_url": "https://coen390-7c76d-default-rtdb.firebaseio.com",
+    "project_id": "coen390-7c76d",
+    "storage_bucket": "coen390-7c76d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1086173987596:android:64add3a4aa36bed295bf29",
+        "android_client_info": {
+          "package_name": "com.example.coen390_project_authentication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1086173987596-q1l95lmiugh1gj6mksait7hedubifm40.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSpuweAJMEmTvDLceKSyu2aTVi6oKITC4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1086173987596-q1l95lmiugh1gj6mksait7hedubifm40.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1086173987596:android:193402aa3beae1f395bf29",
+        "android_client_info": {
+          "package_name": "com.example.monitoredrooms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1086173987596-q1l95lmiugh1gj6mksait7hedubifm40.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSpuweAJMEmTvDLceKSyu2aTVi6oKITC4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1086173987596-q1l95lmiugh1gj6mksait7hedubifm40.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

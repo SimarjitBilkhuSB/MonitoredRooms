@@ -1,6 +1,7 @@
 package com.example.monitoredrooms.ui.home;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,6 +23,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.monitoredrooms.AddRoomDialog;
 import com.example.monitoredrooms.R;
+import com.example.monitoredrooms.RoomProfileActivity;
 import com.example.monitoredrooms.databinding.FragmentFeature1Binding;
 import com.example.monitoredrooms.databinding.FragmentMonitoredRoomsBinding;
 import com.example.monitoredrooms.ui.feature1.Feature1Fragment;
@@ -31,6 +33,11 @@ import com.example.monitoredrooms.utility.SortByHighTemperature;
 import com.example.monitoredrooms.utility.SortByLowTemperature;
 import com.example.monitoredrooms.utility.SortByRoomName;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -160,7 +167,7 @@ public class MonitoredRoomsFragment extends Fragment implements DialogInterface.
                 goToRoomProfileActivity(room);
 
                 //for test purposes // remove eventually
-                Toast.makeText(getContext(), room.getRoomName(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(getContext(), room.getRoomName(), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -168,8 +175,9 @@ public class MonitoredRoomsFragment extends Fragment implements DialogInterface.
 
     private void goToRoomProfileActivity(Room room) {
         //create room profile activity
-        //Intent roomProfileIntent = new Intent(MonitoredRoomsFragment.this, RoomProfileActivity.class);
-        //roomProfileIntent.putExtra("Room", room);
+        Intent roomProfileIntent = new Intent(MonitoredRoomsFragment.this.getActivity(), RoomProfileActivity.class);
+        roomProfileIntent.putExtra("Room", room);
+        startActivity(roomProfileIntent);
     }
 
     //only for test purposes
@@ -181,6 +189,7 @@ public class MonitoredRoomsFragment extends Fragment implements DialogInterface.
             String roomName = "Room++ " + i +":"; //rooms can have 8 characters long names for now
             testRoomList.add(new Room(roomName, 14+i, 14-i, 2*14+i, "Unoccupied", 10));
         }
+
 
         //if the string is empty for some reason, set it to default
         if(sortByChoice == null){
