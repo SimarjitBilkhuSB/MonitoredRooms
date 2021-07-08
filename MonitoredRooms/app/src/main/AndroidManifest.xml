@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MonitoredRooms">
-        <activity android:name=".RoomProfileActivity"></activity>
+        <activity
+            android:name=".RoomProfileActivity"
+            android:label="@string/title_activity_room_profile">
+        </activity>
         <activity
             android:name=".MonitoredRoomsActivity"
             android:label="@string/title_activity_monitored_rooms"

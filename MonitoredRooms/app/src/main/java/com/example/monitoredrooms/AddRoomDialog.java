@@ -16,6 +16,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 
+import com.example.monitoredrooms.ui.home.MonitoredRoomsFragment;
+import com.example.monitoredrooms.utility.DatabaseHelper;
+import com.example.monitoredrooms.utility.Room;
+
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -87,11 +91,24 @@ public class AddRoomDialog extends DialogFragment {
 
     private void saveRoom() {
 
+        DatabaseHelper db = new DatabaseHelper(getContext());
+        String roomName = mRoomNameEditText.getText().toString();
+        double minTemp = Double.parseDouble(mMinTempEditText.getText().toString());
+        double maxTemp = Double.parseDouble(mMaxTempEditText.getText().toString());
+        double roomTemp = (minTemp + maxTemp) / 2;
+        String roomOccupancy = "Unoccupied";
+        int roomOccupancyInterval = Integer.parseInt(mOccupancyIntervalEditText.getText().toString());
+
+        Room room = new Room(roomName, roomTemp, minTemp, maxTemp, roomOccupancy, roomOccupancyInterval);
+
+        db.addRoom(room);
     }
 
     private boolean roomDataValidation(){
 
         //implements if statements to verify that the data entered is valid
+        //need to know sensors limitations to set min and/or max values for each sensor
+        //need to know limit for the name size, for now set it to 8 characters
 
         return true;
     }

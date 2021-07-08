@@ -49,7 +49,7 @@ public class RoomAdapter extends ArrayAdapter<Room> {
         TextView Text3 = (TextView) listElement.findViewById(R.id.item_textview3);
 
         //modify the TextView's text to show the Room's name, temperature and occupancy
-        Text1.setText(currentRoom.getRoomName());
+        Text1.setText(currentRoom.getRoomName().trim()+": ");
         Text2.setText(currentRoom.getRoomTemperature() + "°C");
         Text3.setText(currentRoom.getRoomOccupancy());
 

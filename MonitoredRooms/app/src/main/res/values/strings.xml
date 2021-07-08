@@ -24,6 +24,8 @@
     <string name="min_temp">Min Temp</string>
     <string name="max_temp">Max Temp</string>
     <string name="room_name">Room Name</string>
+    <string name="lowest_temperature">Lowest Temperature</string>
+    <string name="highest_temperature">Highest Temperature</string>
     <string name="save">SAVE</string>
     <string name="occupancy_check_interval">Occupancy Check Interval</string>
     <string name="enter_room_information">Enter Room Information</string>
@@ -33,4 +35,5 @@
     <string name="home_overview">Home Overview</string>
     <string name="username">Username</string>
     <string name="other_information">Other Information</string>
+    <string name="title_activity_room_profile">Room Profile</string>
 </resources>

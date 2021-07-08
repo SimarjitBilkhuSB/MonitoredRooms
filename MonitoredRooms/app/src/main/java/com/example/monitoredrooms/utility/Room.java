@@ -12,7 +12,10 @@ public class Room implements Parcelable {
     private String mRoomOccupancy;
     private int mRoomOccupancyCheckInterval;
 
-    //constructor 3 parameters
+    //Constructor: no argument. Needed for firebase.
+    public Room(){}
+
+    //constructor 4 parameters
     public Room(String RoomName, double MinTemp, double MaxTemp, int OccupancyInterval){
 
         this.mRoomName = RoomName;
@@ -25,7 +28,7 @@ public class Room implements Parcelable {
 
 
 
-    //constructor 5 parameters
+    //constructor 6 parameters
     public Room(String RoomName, double RoomTemp, double MinTemp, double MaxTemp, String Occupancy, int OccupancyInterval){
         this.mRoomName = RoomName;
         this.mRoomTemperature = RoomTemp;

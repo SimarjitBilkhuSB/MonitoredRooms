@@ -5,9 +5,12 @@
         android:id="@+id/action_sort1"
         android:title="@string/by_low_temperature"
         app:showAsAction="never" />
+
+    <!--For now, only using first one. Might delete the one below if not needed in future.-->
     <item
         android:id="@+id/action_sort2"
         android:title="@string/by_high_temperature"
+        android:visible="false"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_sort3"

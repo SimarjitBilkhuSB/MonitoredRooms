@@ -14,35 +14,23 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import com.example.monitoredrooms.AddRoomDialog;
 import com.example.monitoredrooms.R;
 import com.example.monitoredrooms.RoomProfileActivity;
-import com.example.monitoredrooms.databinding.FragmentFeature1Binding;
 import com.example.monitoredrooms.databinding.FragmentMonitoredRoomsBinding;
-import com.example.monitoredrooms.ui.feature1.Feature1Fragment;
+import com.example.monitoredrooms.utility.DatabaseHelper;
 import com.example.monitoredrooms.utility.Room;
 import com.example.monitoredrooms.utility.RoomAdapter;
-import com.example.monitoredrooms.utility.SortByHighTemperature;
-import com.example.monitoredrooms.utility.SortByLowTemperature;
-import com.example.monitoredrooms.utility.SortByRoomName;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class MonitoredRoomsFragment extends Fragment implements DialogInterface.OnDismissListener {
 
@@ -69,7 +57,7 @@ public class MonitoredRoomsFragment extends Fragment implements DialogInterface.
 
 
         //maybe save the choice in database as user preference
-        loadListView(getString(R.string.default_choice));
+        loadListView();
 
     }
 
@@ -79,6 +67,8 @@ public class MonitoredRoomsFragment extends Fragment implements DialogInterface.
          inflater.inflate(R.menu.sort_rooms, menu);
         super.onCreateOptionsMenu(menu, inflater);
 
+         DatabaseHelper db = new DatabaseHelper(getContext());
+         db.loadSortRoomSetting(menu.getItem(0));
      }
 
     @Override
@@ -86,23 +76,27 @@ public class MonitoredRoomsFragment extends Fragment implements DialogInterface.
 
 
         int ID = item.getItemId();
+        DatabaseHelper db = new DatabaseHelper(getContext());
 
-        //String choice = item.getTitle().toString();
-        //String previousChoice --> from database
-
-        //implement once settings table is set in database
-        /**if(ID == R.id.action_sort1){
-            loadListView(item.getTitle().toString());
+        //change between the three sort options and update user settings in database
+        if (ID == R.id.action_sort1) {
+            if(item.getTitle().toString().equalsIgnoreCase(getString(R.string.by_low_temperature))){
+                item.setTitle(getString(R.string.by_high_temperature));
+                db.updateSortRoomSetting(getString(R.string.lowest_temperature));
+                loadListView();
+            }
+            else if(item.getTitle().toString().equalsIgnoreCase(getString(R.string.by_high_temperature))){
+                item.setTitle(getString(R.string.by_room_name));
+                db.updateSortRoomSetting(getString(R.string.highest_temperature));
+                loadListView();
+            }
+            else if(item.getTitle().toString().equalsIgnoreCase(getString(R.string.by_room_name))){
+                item.setTitle(getString(R.string.by_low_temperature));
+                db.updateSortRoomSetting(getString(R.string.room_name));
+                loadListView();
+            }
 
         }
-        else if(ID == R.id.action_sort2){
-
-        }
-        else if(ID == R.id.action_sort3){
-
-        }*/
-
-
 
         //necessary to return super or clicking up button will make the app crash
         return super.onOptionsItemSelected(item);
@@ -176,73 +170,24 @@ public class MonitoredRoomsFragment extends Fragment implements DialogInterface.
     private void goToRoomProfileActivity(Room room) {
         //create room profile activity
         Intent roomProfileIntent = new Intent(MonitoredRoomsFragment.this.getActivity(), RoomProfileActivity.class);
-        roomProfileIntent.putExtra("Room", room);
+        roomProfileIntent.putExtra("Room", room); //passing the whole object might not be necessary, only room name
         startActivity(roomProfileIntent);
     }
 
-    //only for test purposes
-    public void loadListView(String sortByChoice){
-        ArrayList<Room> testRoomList = new ArrayList<>();
+    public void loadListView(){
 
-        //add rooms to list
-        for(int i = 0; i < 10; i++){
-            String roomName = "Room++ " + i +":"; //rooms can have 8 characters long names for now
-            testRoomList.add(new Room(roomName, 14+i, 14-i, 2*14+i, "Unoccupied", 10));
-        }
+        DatabaseHelper db = new DatabaseHelper(getContext());
+        ArrayList<Room> roomList = new ArrayList<>();
+        RoomAdapter roomAdapter = new RoomAdapter(getContext(), roomList);
 
-
-        //if the string is empty for some reason, set it to default
-        if(sortByChoice == null){
-            sortByChoice = getString(R.string.default_choice);
-        }
-
-        //changes the order in the list based on the criterion selected
-        if(sortByChoice.equalsIgnoreCase("lowest temperature")){
-            sortByLowTemperature(testRoomList); //eventually change for list from database
-        }
-        else if(sortByChoice.equalsIgnoreCase("highest temperature")){
-            sortByHighTemperature(testRoomList); //eventually change for list from database
-        }
-        else{
-            sortByRoomName(testRoomList); //default option
-        }
-
-        //if list not empty, load listView otherwise prompt the user to add/create a room
-        if(!testRoomList.isEmpty()){
-            RoomAdapter roomAdapter = new RoomAdapter(getContext(), testRoomList);
-            mRoomListView.setAdapter(roomAdapter);
-
-            mNoRoomTextView.setVisibility(View.GONE);
-            mNoRoomImageView.setVisibility(View.GONE);
-            mAddRoomButton.setVisibility(View.GONE);
-
-        }
-        else{
-            mRoomListView.setVisibility(View.GONE);
-            mAddRoomFloatingButton.setVisibility(View.GONE);
-
-            mNoRoomTextView.setVisibility(View.VISIBLE);
-            mNoRoomImageView.setVisibility(View.VISIBLE);
-            mAddRoomButton.setVisibility(View.VISIBLE);
-
-        }
+        db.hasRooms(mRoomListView, mAddRoomFloatingButton, mNoRoomTextView, mNoRoomImageView, mAddRoomButton);
+        db.updateRoomList(roomList, roomAdapter, mRoomListView); //add sort choice
     }
 
-    private void sortByLowTemperature(ArrayList<Room> roomList){
-        Collections.sort(roomList, new SortByLowTemperature());
-    }
-
-    private void sortByHighTemperature(ArrayList<Room> roomList){
-        Collections.sort(roomList, new SortByHighTemperature());
-    }
-
-    private void sortByRoomName(ArrayList<Room> roomList){
-        Collections.sort(roomList, new SortByRoomName());
-    }
 
     @Override
     public void onDismiss(DialogInterface dialog) {
         //called when DialogInterface is dismissed
-        loadListView("default"); //load with settings from database
+        loadListView(); //load with settings from database
     }
 }
