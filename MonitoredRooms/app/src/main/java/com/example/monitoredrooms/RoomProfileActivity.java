@@ -60,7 +60,6 @@ public class RoomProfileActivity extends AppCompatActivity {
         db.readRoom(room, mRoomTemp, mRoomOccupancyStatus);
         //displays the changes in room temperature and room occupancy
         //to show change in room name, update EditText after pressing save changes
-        //room.setRoomName("name");
 
 
 
@@ -99,10 +98,6 @@ public class RoomProfileActivity extends AppCompatActivity {
 
                 db.editRoom(room, newRoom);
 
-                //restart roomProfileActivity
-                restartRoomProfileActivity(newRoom);
-
-
             }
         });
 
@@ -119,13 +114,6 @@ public class RoomProfileActivity extends AppCompatActivity {
                 startActivity(new Intent(RoomProfileActivity.this, MonitoredRoomsActivity.class));
             }
         });
-    }
-
-    private void restartRoomProfileActivity(Room Room){
-        Intent roomProfileIntent = new Intent(RoomProfileActivity.this, RoomProfileActivity.class);
-        roomProfileIntent.putExtra("Room", Room);
-        startActivity(roomProfileIntent);
-        finish(); //close the activity to no create a loop/succession of the same activity
     }
 
     private boolean roomDataValidation(){

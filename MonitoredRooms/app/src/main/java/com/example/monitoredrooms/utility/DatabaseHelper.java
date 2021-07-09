@@ -1,6 +1,7 @@
 package com.example.monitoredrooms.utility;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.ArrayMap;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.monitoredrooms.RoomProfileActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -35,7 +37,7 @@ public class DatabaseHelper {
     private DatabaseReference mDatabaseReference;
     private Context mContext;
 
-    /** Apart from addRoom, deleteRoom and editRoom(future), methods are activity-specific */
+    /** Apart from addRoom, deleteRoom and methods are activity-specific */
 
     //Constructor - add user name to constructor later
     public DatabaseHelper(@Nullable Context context){
@@ -131,13 +133,21 @@ public class DatabaseHelper {
         mDatabaseReference.child("TestUsers").child("Jordan").child("Rooms").addListenerForSingleValueEvent(deleteRoomListener);
     }
 
+    /** Method below is used specifically in room profile activity */
+
     public void editRoom(Room oldRoom, Room newRoom){
 
         ValueEventListener roomListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                boolean isNameUnique = true;
+                DatabaseReference roomRef = null;
                 //loop1: go through each element of the room list
                 for(DataSnapshot roomSnapshot : snapshot.getChildren()){
+                    //if the new room name is not unique break loop
+                    if(!isNameUnique){
+                        break;
+                    }
                     //loop2: go through each element in the room
                     for(DataSnapshot roomElementSnapshot : roomSnapshot.getChildren()){
                         String roomInfoKey = roomElementSnapshot.getKey();
@@ -148,7 +158,8 @@ public class DatabaseHelper {
                             if(roomInfo.equalsIgnoreCase(newRoom.getRoomName())){
                                 //if the old room and the new room are the same, update the room
                                 if(oldRoom.getRoomName().equalsIgnoreCase(newRoom.getRoomName())){
-                                    DatabaseReference roomRef = roomSnapshot.getRef();
+
+                                    roomRef = roomSnapshot.getRef();
                                     Map<String,Object> roomElements = new ArrayMap<>();
                                     roomElements.put("roomMaxTemperature", newRoom.getRoomMaxTemperature());
                                     roomElements.put("roomMinTemperature", newRoom.getRoomMinTemperature());
@@ -157,37 +168,63 @@ public class DatabaseHelper {
                                         @Override
                                         public void onSuccess(Void unused) {
                                             Toast.makeText(mContext, oldRoom.getRoomName() + " was successfully edited!", Toast.LENGTH_LONG).show();
+
+                                            //restart profile activity
+                                            Intent activityIntent = new Intent(mContext, RoomProfileActivity.class);
+                                            //the activity will be restarted with the new intent
+                                            activityIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            activityIntent.putExtra("Room", newRoom);
+                                            mContext.startActivity(activityIntent);
                                         }
                                     });
-
+                                    //clear reference
+                                    roomRef = null;
                                 }
                                 else{
-                                    //a different room in the database already use the name chosen to edit the old room
-                                    Toast.makeText(mContext, "Room name must be unique! Please choose another name!", Toast.LENGTH_LONG).show();
+                                    //a different room in the database already using the name chosen to edit the old room
+                                    isNameUnique = false;
+                                    //need break or will continue
+                                    break;
                                 }
                             }
-                            else if(!roomInfo.equalsIgnoreCase(newRoom.getRoomName()) && roomInfo.equalsIgnoreCase(oldRoom.getRoomName())){
-                                //if the new name is not already in the database, and new name is different than old name
-                                //update the room
-                                DatabaseReference roomRef = roomSnapshot.getRef();
-                                Map<String,Object> roomElements = new ArrayMap<>();
-                                roomElements.put("roomMaxTemperature", newRoom.getRoomMaxTemperature());
-                                roomElements.put("roomMinTemperature", newRoom.getRoomMinTemperature());
-                                roomElements.put("roomName", newRoom.getRoomName());
-                                roomElements.put("roomOccupancyCheckInterval", newRoom.getRoomOccupancyCheckInterval());
-                                roomRef.updateChildren(roomElements).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        String message = oldRoom.getRoomName() + " was successfully changed to " + newRoom.getRoomName() + ".";
-                                        Toast.makeText(mContext, message, Toast.LENGTH_LONG).show();
-                                    }
-                                });
-
-
-
+                            //should be if the newRoom name is not found in the database
+                            else if(roomInfo.equalsIgnoreCase(oldRoom.getRoomName()) && isNameUnique){
+                                //save/record oldRoom reference
+                                roomRef = roomSnapshot.getRef();
                             }
+
                         }
                     }
+                }
+                //if the new name is not already in the database, and new name is unique and different than old name
+                //update the room
+                if(isNameUnique && roomRef != null){
+
+                    Map<String,Object> roomElements = new ArrayMap<>();
+                    roomElements.put("roomMaxTemperature", newRoom.getRoomMaxTemperature());
+                    roomElements.put("roomMinTemperature", newRoom.getRoomMinTemperature());
+                    roomElements.put("roomName", newRoom.getRoomName());
+                    roomElements.put("roomOccupancyCheckInterval", newRoom.getRoomOccupancyCheckInterval());
+                    roomRef.updateChildren(roomElements).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            String message = oldRoom.getRoomName() + " was successfully changed to " + newRoom.getRoomName() + ".";
+                            Toast.makeText(mContext, message, Toast.LENGTH_LONG).show();
+
+                            //restart profile activity
+                            Intent activityIntent = new Intent(mContext, RoomProfileActivity.class);
+                            //the activity will be restarted with the new intent
+                            activityIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            activityIntent.putExtra("Room", newRoom);
+                            mContext.startActivity(activityIntent);
+
+                        }
+                    });
+                }
+                //if the new name is already in use in the database by another room which is not the old room
+                //and the room reference has been cleared
+                else if(!isNameUnique && roomRef == null){
+                    Toast.makeText(mContext, "Room name must be unique! Please choose another name!", Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -199,7 +236,6 @@ public class DatabaseHelper {
         mDatabaseReference.child("TestUsers").child("Jordan").child("Rooms").addListenerForSingleValueEvent(roomListener);
     }
 
-    /** Method below is used specifically in room profile activity */
 
     //show changes in roomTemp and roomOccupancy of the room
     public void readRoom(Room oldRoom, EditText roomTempET, EditText roomOccupancyET){
