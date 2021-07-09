@@ -37,7 +37,7 @@ public class DatabaseHelper {
     private DatabaseReference mDatabaseReference;
     private Context mContext;
 
-    /** Apart from addRoom, deleteRoom and methods are activity-specific */
+    /** Apart from addRoom, deleteRoom methods are activity-specific */
 
     //Constructor - add user name to constructor later
     public DatabaseHelper(@Nullable Context context){
@@ -133,7 +133,7 @@ public class DatabaseHelper {
         mDatabaseReference.child("TestUsers").child("Jordan").child("Rooms").addListenerForSingleValueEvent(deleteRoomListener);
     }
 
-    /** Method below is used specifically in room profile activity */
+    /** Two Methods below are used specifically in room profile activity */
 
     public void editRoom(Room oldRoom, Room newRoom){
 
@@ -223,7 +223,7 @@ public class DatabaseHelper {
                 }
                 //if the new name is already in use in the database by another room which is not the old room
                 //and the room reference has been cleared
-                else if(!isNameUnique && roomRef == null){
+                else if(!isNameUnique){
                     Toast.makeText(mContext, "Room name must be unique! Please choose another name!", Toast.LENGTH_LONG).show();
                 }
             }
