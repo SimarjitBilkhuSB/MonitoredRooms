@@ -177,6 +177,8 @@ public class DatabaseHelper {
                                             mContext.startActivity(activityIntent);
                                         }
                                     });
+                                    //clear reference
+                                    roomRef = null;
                                 }
                                 else{
                                     //a different room in the database already using the name chosen to edit the old room
