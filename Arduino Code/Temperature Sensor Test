@@ -3,34 +3,21 @@
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BME280.h>
 
-
 Adafruit_BME280 bme; // Object of the sensor I2C
 
 float temperature;
-
-const char * WIFI_SSID = "Network Name"; // "Network Name";
-const char * WIFI_PASSWORD = "Network Password"; //"Network Password";
-
 
 void setup() {
   
   // put your setup code here, to run once:
   Serial.begin(115200);
-
-    //Connecting to the wifi SSID entered above by the user
-  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
-  
+    
   bme.begin(0x76);
 
   if (!bme.begin(0x76)) {
     Serial.println("Could not find a valid Temperature Sensor");
     while(1);
   }
-  
-  //while (WiFi.status() != WL_CONNECTED) {
- //   delay (1000);
-//  }
-
 }
 
 void loop() {
