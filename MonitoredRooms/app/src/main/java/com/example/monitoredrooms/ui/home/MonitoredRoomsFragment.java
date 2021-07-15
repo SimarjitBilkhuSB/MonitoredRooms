@@ -100,13 +100,6 @@ public class MonitoredRoomsFragment extends Fragment implements DialogInterface.
             }
 
         }
-        else if(ID == R.id.logoutButton){
-
-                AuthenticationHelper AuthHelper = new AuthenticationHelper(getContext());
-                AuthHelper.logout();
-                goToLoginActivity();
-
-        }
 
         //necessary to return super or clicking up button will make the app crash
         return super.onOptionsItemSelected(item);
@@ -117,14 +110,10 @@ public class MonitoredRoomsFragment extends Fragment implements DialogInterface.
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-
         binding = FragmentMonitoredRoomsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         setupUI(root);
-
-
-
 
         return root;
     }
