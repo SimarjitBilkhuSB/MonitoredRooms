@@ -2,6 +2,8 @@ package com.example.monitoredrooms.utility;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class Room implements Parcelable {
 
@@ -88,7 +90,8 @@ public class Room implements Parcelable {
     }
 
     public double getRoomTemperature() {
-        return mRoomTemperature;
+        double temp = Math.round(mRoomTemperature*100.0)/100.0;
+        return temp;
     }
 
     public void setRoomTemperature(double mRoomTemperature) {
