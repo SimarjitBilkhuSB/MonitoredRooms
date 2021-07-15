@@ -19,6 +19,7 @@ import com.example.monitoredrooms.RoomProfileActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -42,7 +43,9 @@ public class DatabaseHelper {
     //Constructor - add user name to constructor later
     public DatabaseHelper(@Nullable Context context){
         this.mContext = context;
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference(); //get instance of DatabaseReference
+        AuthenticationHelper AuthHelper = new AuthenticationHelper(context);
+        //get instance of DatabaseReference
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(AuthHelper.getUserID());
     }
 
     public void addRoom(Room room){
@@ -94,7 +97,7 @@ public class DatabaseHelper {
             }
         };
         //need to change Jordan for the current user's username
-        mDatabaseReference.child("TestUsers").child("Jordan").child("Rooms").addListenerForSingleValueEvent(addRoomListener);
+        mDatabaseReference.child("Rooms").addListenerForSingleValueEvent(addRoomListener);
 
     }
 
@@ -130,7 +133,7 @@ public class DatabaseHelper {
             }
         };
         //need to change Jordan for the current user's username
-        mDatabaseReference.child("TestUsers").child("Jordan").child("Rooms").addListenerForSingleValueEvent(deleteRoomListener);
+        mDatabaseReference.child("Rooms").addListenerForSingleValueEvent(deleteRoomListener);
     }
 
     /** Two Methods below are used specifically in room profile activity */
@@ -233,7 +236,7 @@ public class DatabaseHelper {
                 Toast.makeText(mContext, "Database operation failed: " + error.getMessage(), Toast.LENGTH_LONG).show();
             }
         };
-        mDatabaseReference.child("TestUsers").child("Jordan").child("Rooms").addListenerForSingleValueEvent(roomListener);
+        mDatabaseReference.child("Rooms").addListenerForSingleValueEvent(roomListener);
     }
 
 
@@ -270,7 +273,7 @@ public class DatabaseHelper {
             }
         };
         //need to change Jordan for the current user's username
-        mDatabaseReference.child("TestUsers").child("Jordan").child("Rooms").addValueEventListener(roomListener);
+        mDatabaseReference.child("Rooms").addValueEventListener(roomListener);
 
     }
 
@@ -325,7 +328,7 @@ public class DatabaseHelper {
             }
         };
         //need to change Jordan for the current user's username
-        this.mDatabaseReference.child("TestUsers").child("Jordan").child("Rooms").addChildEventListener(roomListener);
+        this.mDatabaseReference.child("Rooms").addChildEventListener(roomListener);
     }
 
 
@@ -362,7 +365,7 @@ public class DatabaseHelper {
             }
         };
         //need to change Jordan for the current user's username
-        this.mDatabaseReference.child("TestUsers").child("Jordan").child("Rooms").addValueEventListener(roomValueListener);
+        this.mDatabaseReference.child("Rooms").addValueEventListener(roomValueListener);
     }
 
     //loads room settings and load the menu item
@@ -400,7 +403,7 @@ public class DatabaseHelper {
                 Toast.makeText(mContext, "Database operation failed: " + error.getMessage(), Toast.LENGTH_LONG).show();
             }
         };
-        mDatabaseReference.child("TestUsers").child("Jordan").child("Settings").child("Sort Rooms By").addListenerForSingleValueEvent(settingListener);
+        mDatabaseReference.child("Settings").child("Sort Rooms By").addListenerForSingleValueEvent(settingListener);
 
 
     }
@@ -412,7 +415,7 @@ public class DatabaseHelper {
         }
         //adds the settings for how the data is sorted, also overwrites/updates the settings if exists
         //don't change reference except Jordan should be change with current user's username
-        mDatabaseReference.child("TestUsers").child("Jordan").child("Settings").child("Sort Rooms By").setValue(setting)
+        mDatabaseReference.child("Settings").child("Sort Rooms By").setValue(setting)
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull @NotNull Exception e) {
@@ -437,7 +440,7 @@ public class DatabaseHelper {
                 Toast.makeText(mContext, "Database operation failed: " + error.getMessage(), Toast.LENGTH_LONG).show();
             }
         };
-        this.mDatabaseReference.child("TestUsers").child("Jordan").child("Settings").child("Sort Rooms By").addValueEventListener(settingListener);
+        this.mDatabaseReference.child("Settings").child("Sort Rooms By").addValueEventListener(settingListener);
     }
 
     private void sortRooms(List<Room> roomList, String setting) {

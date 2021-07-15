@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MonitoredRooms</string>
+    <string name="app_name">Temp Tracker</string>
     <string name="title_activity_monitored_rooms">Monitored Rooms Activity</string> <!-- App Title shown below app icon -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

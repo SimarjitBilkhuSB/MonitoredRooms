@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
@@ -26,6 +27,12 @@
             android:id="@+id/nav_feature3"
             android:icon="@drawable/ic_menu_feature3"
             android:title="@string/menu_feature3" />
+
+        <item
+            android:id="@+id/logoutButton"
+            android:icon="@drawable/ic_menu_logout"
+            android:title="Log Out" />
+
 
         <!-- change this when adding new feature -->
         <!-- after changing title, use the same string reference to update the label in the mobile_navigation.xml

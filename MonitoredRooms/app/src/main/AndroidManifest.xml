@@ -10,18 +10,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MonitoredRooms">
         <activity
-            android:name=".RoomProfileActivity"
-            android:label="@string/title_activity_room_profile">
+            android:name=".RegisterActivity"
+            android:theme="@style/Theme.MonitoredRooms.NoActionBar">
         </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:theme="@style/Theme.MonitoredRooms.NoActionBar">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+        <activity
+            android:name=".RoomProfileActivity"
+            android:label="@string/title_activity_room_profile" />
         <activity
             android:name=".MonitoredRoomsActivity"
             android:label="@string/title_activity_monitored_rooms"
             android:theme="@style/Theme.MonitoredRooms.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

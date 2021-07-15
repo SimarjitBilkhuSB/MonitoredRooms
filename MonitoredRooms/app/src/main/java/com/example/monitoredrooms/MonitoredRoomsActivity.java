@@ -1,18 +1,22 @@
 package com.example.monitoredrooms;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
+import android.view.MenuItem;
 
-import com.google.android.material.navigation.NavigationView;
-
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.monitoredrooms.databinding.ActivityMonitoredRoomsBinding;
+import com.example.monitoredrooms.utility.AuthenticationHelper;
+import com.google.android.material.navigation.NavigationView;
+
+import org.jetbrains.annotations.NotNull;
 
 public class MonitoredRoomsActivity extends AppCompatActivity {
 
@@ -40,6 +44,22 @@ public class MonitoredRoomsActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_monitored_rooms);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        //If the features are not fragments or activities define their actions here
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem item) {
+
+                int ID = item.getItemId();
+                if (ID == R.id.logoutButton) {
+                    AuthenticationHelper AuthHelper = new AuthenticationHelper(MonitoredRoomsActivity.this);
+                    AuthHelper.logout();
+                    goToLoginActivity();
+
+                }
+                return true;
+            }
+        });
     }
 
     //use if menu needed in activity
@@ -56,5 +76,11 @@ public class MonitoredRoomsActivity extends AppCompatActivity {
         //Shows a menu icon on top destination and an arrow icon for other destinations
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    private void goToLoginActivity(){
+        Intent loginIntent = new Intent(MonitoredRoomsActivity.this, LoginActivity.class);
+        loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); //activities on top will be closed
+        startActivity(loginIntent);
     }
 }

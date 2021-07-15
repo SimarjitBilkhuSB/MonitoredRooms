@@ -33,8 +33,6 @@ public class RoomProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room_profile);
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-
         mRoomName = findViewById(R.id.roomName);
         mRoomTemp = findViewById(R.id.roomTemp);
         mRoomOccupancyStatus = findViewById(R.id.roomOccupancyStatus);
@@ -110,8 +108,9 @@ public class RoomProfileActivity extends AppCompatActivity {
                 //For Testing, deleting a hardcoded value
                 DatabaseHelper db = new DatabaseHelper(RoomProfileActivity.this);
                 db.deleteRoom(room.getRoomName());
-
-                startActivity(new Intent(RoomProfileActivity.this, MonitoredRoomsActivity.class));
+                Intent monitoredRoomsIntent = new Intent(RoomProfileActivity.this, MonitoredRoomsActivity.class);
+                monitoredRoomsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); //activities on top will be closed
+                startActivity(monitoredRoomsIntent);
             }
         });
     }
