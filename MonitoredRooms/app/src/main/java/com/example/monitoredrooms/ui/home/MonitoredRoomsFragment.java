@@ -20,9 +20,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.monitoredrooms.AddRoomDialog;
+import com.example.monitoredrooms.LoginActivity;
+import com.example.monitoredrooms.MonitoredRoomsActivity;
 import com.example.monitoredrooms.R;
 import com.example.monitoredrooms.RoomProfileActivity;
 import com.example.monitoredrooms.databinding.FragmentMonitoredRoomsBinding;
+import com.example.monitoredrooms.utility.AuthenticationHelper;
 import com.example.monitoredrooms.utility.DatabaseHelper;
 import com.example.monitoredrooms.utility.Room;
 import com.example.monitoredrooms.utility.RoomAdapter;
@@ -95,6 +98,13 @@ public class MonitoredRoomsFragment extends Fragment implements DialogInterface.
                 db.updateSortRoomSetting(getString(R.string.room_name));
                 loadListView();
             }
+
+        }
+        else if(ID == R.id.logoutButton){
+
+                AuthenticationHelper AuthHelper = new AuthenticationHelper(getContext());
+                AuthHelper.logout();
+                goToLoginActivity();
 
         }
 
@@ -172,6 +182,12 @@ public class MonitoredRoomsFragment extends Fragment implements DialogInterface.
         Intent roomProfileIntent = new Intent(MonitoredRoomsFragment.this.getActivity(), RoomProfileActivity.class);
         roomProfileIntent.putExtra("Room", room); //passing the whole object might not be necessary, only room name
         startActivity(roomProfileIntent);
+    }
+
+    private void goToLoginActivity(){
+        Intent loginIntent = new Intent(getContext(), LoginActivity.class);
+        loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); //activities on top will be closed
+        startActivity(loginIntent);
     }
 
     public void loadListView(){

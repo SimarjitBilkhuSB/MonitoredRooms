@@ -11,7 +11,7 @@
         android:id="@+id/registerAuthenticatorTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="60dp"
         android:fontFamily="monospace"
         android:text="Authenticator App"
         android:textColor="@color/light_blue"
