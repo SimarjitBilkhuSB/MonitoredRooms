@@ -2,8 +2,8 @@
 #include <FirebaseESP32.h>
 
 //define the Firebase database
-#define FIREBASE_HOST "coen390-7c76d-default-rtdb.firebaseio.com"//"dbtest-3ee50-default-rtdb.firebaseio.com" the host link (remove the 'http://' at the front and '/' at the end)
-#define FIREBASE_AUTH "Rb9ZOi3caRlCEiY3n3gQGLCIr3etJFVrz6tfWTeF" //"P3XjhMiJoEJqy2Dmasis8Te8QQ1UBIzWCI5rUJS1" the database secret ->On Firebase site: Project Overview->Project settings->Service accounts->Database secrets
+#define FIREBASE_HOST ""
+#define FIREBASE_AUTH ""
 #define WIFI_SSID "" //SSID name that you want to connect to
 #define WIFI_PASSWORD "" //SSID's password
 
