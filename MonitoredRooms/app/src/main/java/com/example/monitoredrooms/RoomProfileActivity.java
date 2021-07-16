@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.example.monitoredrooms.utility.DatabaseHelper;
 import com.example.monitoredrooms.utility.Room;
@@ -24,15 +23,11 @@ public class RoomProfileActivity extends AppCompatActivity {
     protected EditText mEditMinTemp;
     protected EditText mEditMaxTemp;
     protected EditText mEditOccupancy;
-    protected TextView mOccupancyLabel;
-    protected TextView mOccupancyCheckLabel;
-    protected TextView mCelsiusLabel;
-    protected TextView mTemperatureLabel;
-    protected TextView mTemperatureRangeLabel;
     protected Button mDeleteRoom;
     protected Button mSaveChanges;
     protected Button mEditRoom;
     protected View mEditRoomLayout;
+    protected View mRoomProfileLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,21 +39,18 @@ public class RoomProfileActivity extends AppCompatActivity {
         mRoomOccupancyStatus = findViewById(R.id.roomOccupancyStatus);
         mDeleteRoom = findViewById(R.id.deleteRoom);
         mEditRoom = findViewById(R.id.editRoom);
-        mOccupancyLabel = findViewById(R.id.textView7);
-        mCelsiusLabel = findViewById(R.id.textView6);
-        mTemperatureLabel = findViewById(R.id.textView5);
-        mTemperatureRangeLabel = findViewById(R.id.newAccountTextView);
-        mOccupancyCheckLabel = findViewById(R.id.textView3);
 
+        mRoomProfileLayout = findViewById(R.id.room_profile_layout);
         mDisplayRoomName = findViewById(R.id.edit_roomName);
         mDisplayMinTemp = findViewById(R.id.display_minTemp);
         mDisplayMaxTemp = findViewById(R.id.display_maxTemp);
         mDisplayOccupancy = findViewById(R.id.display_occupancyInterval);
+
         mEditRoomLayout = findViewById(R.id.display_room_layout);
         mSaveChanges = findViewById(R.id.saveChanges);
         mEditMinTemp = mEditRoomLayout.findViewById(R.id.edit_MinTemp);
         mEditMaxTemp = mEditRoomLayout.findViewById(R.id.edit_maxTemp);
-        mEditOccupancy = mEditRoomLayout.findViewById(R.id.edit_occupanyInterval);
+        mEditOccupancy = mEditRoomLayout.findViewById(R.id.edit_occupancyInterval);
         mEditRoomName = mEditRoomLayout.findViewById(R.id.edit_roomName);
 
         //when used the passed room, the values are not changing, should be using database directly
@@ -90,18 +82,8 @@ public class RoomProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //Make Room Profile Layout editable
                 mEditRoomLayout.setVisibility(View.VISIBLE);
+                mRoomProfileLayout.setVisibility(View.GONE);
 
-                mRoomName.setVisibility(View.GONE);
-                mDisplayMinTemp.setVisibility(View.GONE);
-                mDisplayMaxTemp.setVisibility(View.GONE);
-                mDisplayOccupancy.setVisibility(View.GONE);
-                mRoomOccupancyStatus.setVisibility(View.GONE);
-                mRoomTemp.setVisibility(View.GONE);
-                mOccupancyLabel.setVisibility(View.GONE);
-                mCelsiusLabel.setVisibility(View.GONE);
-                mTemperatureLabel.setVisibility(View.GONE);
-                mTemperatureRangeLabel.setVisibility(View.GONE);
-                mOccupancyCheckLabel.setVisibility(View.GONE);
                 //Remove delete room and edit room button from view and display save changes button
                 mDeleteRoom.setVisibility(View.GONE);
                 mEditRoom.setVisibility(View.GONE);
