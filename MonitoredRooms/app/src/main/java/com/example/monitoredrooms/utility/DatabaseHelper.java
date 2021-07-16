@@ -241,7 +241,7 @@ public class DatabaseHelper {
 
 
     //show changes in roomTemp and roomOccupancy of the room
-    public void readRoom(Room oldRoom, EditText roomTempET, EditText roomOccupancyET){
+    public void readRoom(Room oldRoom, EditText roomTempET, EditText roomOccupancyET, EditText minTempET, EditText maxTempET, EditText occupIntervalET){
 
         ValueEventListener roomListener = new ValueEventListener() {
             @Override
@@ -261,6 +261,9 @@ public class DatabaseHelper {
                                 //update oldRoom info with new room info
                                 roomTempET.setText(String.valueOf(newRoom.getRoomTemperature()));
                                 roomOccupancyET.setText(newRoom.getRoomOccupancy());
+                                minTempET.setText(String.valueOf(newRoom.getRoomMinTemperature()));
+                                maxTempET.setText(String.valueOf(newRoom.getRoomMaxTemperature()));
+                                occupIntervalET.setText(String.valueOf(newRoom.getRoomOccupancyCheckInterval()));
                             }
                         }
                     }
@@ -276,6 +279,7 @@ public class DatabaseHelper {
         mDatabaseReference.child("Rooms").addValueEventListener(roomListener);
 
     }
+
 
     /** Everything below is used specifically in monitored rooms fragment */
 
