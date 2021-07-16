@@ -24,7 +24,8 @@
         </activity>
         <activity
             android:name=".RoomProfileActivity"
-            android:label="@string/title_activity_room_profile" />
+            android:label="@string/title_activity_room_profile"
+            android:parentActivityName=".MonitoredRoomsActivity"/>
         <activity
             android:name=".MonitoredRoomsActivity"
             android:label="@string/title_activity_monitored_rooms"
