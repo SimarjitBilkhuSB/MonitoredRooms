@@ -28,7 +28,7 @@ public class AuthenticationHelper {
     }
 
     //when a user is created, it is automatically signed in //need to add username or full name to account
-    public void createUser(String email, String password){
+    public void createUser(String email, String password, String confirmPassword){
 
         mFirebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
             //user created successfully, display message

@@ -25,6 +25,7 @@ public class LoginActivity extends AppCompatActivity {
     Button mLoginBtn;
     TextView mCreateBtn;
     ProgressBar progressBar;
+    FirebaseAuth fAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         mLoginBtn = findViewById(R.id.LoginButton);
         mCreateBtn = findViewById(R.id.NoAccountRegisterTextView);
         progressBar = findViewById(R.id.loginProgressBar);
-
+        fAuth = FirebaseAuth.getInstance();
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,8 +57,25 @@ public class LoginActivity extends AppCompatActivity {
                 // authenticate the user
                 AuthenticationHelper AuthHelper = new AuthenticationHelper(LoginActivity.this);
                 AuthHelper.login(email, password);
-                progressBar.setVisibility(View.GONE);
 
+                progressBar.setVisibility(View.GONE);
+                fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getApplicationContext(), MonitoredRoomsActivity.class));
+                        }
+
+                        else {
+                            Toast.makeText(LoginActivity.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            //startActivity(new Intent(getApplicationContext(), Register.class));
+                            progressBar.setVisibility(View.GONE);
+
+                        }
+
+                    }
+                });
             }
         });
 
@@ -75,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
             mEmail.setError("Email is Required.");
             return;
         }
-
+  
         if (TextUtils.isEmpty(password)) {
             mPassword.setError("Password is Required.");
             return;
